@@ -40,7 +40,7 @@ var calculations = [
     }
   },
   {
-    title: 'Amount',
+    title: 'Total Amount',
     value: 'amountTotal',
     template: function (val, row) {
       return '$' + val.toFixed(2)
@@ -58,12 +58,12 @@ var calculations = [
     className: 'alignRight'
   },
   {
-    title: '% of Avg Amount',
+    title: '% of Total Amount',
     value: function (row) {
       return row.amountTotal / row.count
     },
-    template: function (val, row, parentRow) {
-      return ((row.amountTotal / parentRow.amountTotal) * 100).toFixed(2) + ' %'
+    template: function (val, row, toplevelParent) {
+      return ((row.amountTotal / toplevelParent.amountTotal) * 100).toFixed(2) + ' %'
     },
     className: 'alignRight'
   }

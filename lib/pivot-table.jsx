@@ -83,19 +83,19 @@ module.exports = createReactClass({
 
   renderTableBody: function (columns, rows) {
     var self = this
-    let parentRow = rows[0]
+    let toplevelParent = rows[0]
     return (
       <tbody>
       {rows.map(function (row) {
-        if ((row._level - parentRow._level) === 0) {
-          parentRow = row
+        if ((row._level - toplevelParent._level) === 0) {
+          toplevelParent = row
         }
         return (
           <tr key={row._key} className={"reactPivot-level-" + row._level}>
             {columns.map(function (col, i) {
               if (i < row._level) return <td key={i} className='reactPivot-indent' />
 
-              return self.renderCell(col, row, parentRow)
+              return self.renderCell(col, row, toplevelParent)
             })}
           </tr>
         )
