@@ -62,7 +62,7 @@ var calculations = [
     value: function (row) {
       return row.amountTotal / row.count
     },
-    template: function (val, row, toplevelParent) {
+    template: function (val, row, toplevelParent, previousLevelParent) {
       return ((row.amountTotal / toplevelParent.amountTotal) * 100).toFixed(2) + ' %'
     },
     className: 'alignRight'

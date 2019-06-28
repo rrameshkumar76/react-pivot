@@ -86,19 +86,18 @@ module.exports = createReactClass({
 
   renderTableBody: function (columns, rows) {
     var self = this
-    let toplevelParent = rows[0]
+    var parents = new Map()
     return (
       <tbody>
       {rows.map(function (row) {
-        if (row._level === 0) {
-          toplevelParent = row
-        }
+        parents.set(row._level, row)
         return (
           <tr key={row._key} className={"reactPivot-level-" + row._level}>
             {columns.map(function (col, i) {
               if (i < row._level) return <td key={i} className='reactPivot-indent' />
-
-              return self.renderCell(col, row, toplevelParent)
+              var topLevelParent = parents.get(0)
+              var previousLevelParent = row._level > 0 ? parents.get(row._level - 1) : topLevelParent
+              return self.renderCell(col, row, topLevelParent, previousLevelParent)
             })}
           </tr>
         )
@@ -108,16 +107,16 @@ module.exports = createReactClass({
     )
   },
 
-  renderCell: function (col, row, parentRow) {
+  renderCell: function (col, row, topLevelParentRow, previousLevelParentRow) {
     if (col.type === 'dimension') {
       var val = row[col.title]
       var text = val
       var dimensionExists = (typeof val) !== 'undefined'
-      if (col.template && dimensionExists) text = col.template(val, row, parentRow)
+      if (col.template && dimensionExists) text = col.template(val, row, topLevelParentRow, previousLevelParentRow)
     } else {
       var val = getValue(col, row)
       var text = val
-      if (col.template) text = col.template(val, row, parentRow)
+      if (col.template) text = col.template(val, row, topLevelParentRow, previousLevelParentRow)
     }
 
     if (dimensionExists) {
