@@ -58,12 +58,12 @@ var calculations = [
     className: 'alignRight'
   },
   {
-    title: 'percentage of Avg Amount',
+    title: '% of Avg Amount',
     value: function (row) {
       return row.amountTotal / row.count
     },
     template: function (val, row, parentRow) {
-      return ((row.amountTotal / parentRow.amountTotal) * 100).toFixed(2)
+      return ((row.amountTotal / parentRow.amountTotal) * 100).toFixed(2) + ' %'
     },
     className: 'alignRight'
   }
