@@ -9,18 +9,18 @@ var gh = require('./gh.jsx')
 var data = require('./data.json')
 
 var dimensions = [
-  {value: 'firstName', title: 'First Name'},
-  {value: 'lastName', title: 'Last Name'},
-  {value: 'state', title: 'State'},
+  { value: 'firstName', title: 'First Name' },
+  { value: 'lastName', title: 'Last Name' },
+  { value: 'state', title: 'State' },
   {value: function(row) {
-    return row.transaction.business
+      return row.transaction.business
   }, title: 'Business'},
   {value: function(row) {
-    return row.transaction.type
+      return row.transaction.type
   }, title: 'Transaction Type'}
 ]
 
-var reduce = function(row, memo) {
+var reduce = function (row, memo) {
   memo.count = (memo.count || 0) + 1
   memo.amountTotal = (memo.amountTotal || 0) + parseFloat(row.transaction.amount)
   return memo
@@ -43,10 +43,10 @@ var calculations = [
   },
   {
     title: 'Avg Amount',
-    value: function(row) {
+    value: function (row) {
       return row.amountTotal / row.count
     },
-    template: function(val, row) {
+    template: function (val, row) {
       return '$' + val.toFixed(2)
     },
     className: 'alignRight'
@@ -54,14 +54,14 @@ var calculations = [
 ]
 
 var Demo = createReactClass({
-  getInitialState: function() {
-    return {showInput: false}
+  getInitialState: function () {
+    return { showInput: false }
   },
-  toggleShow: function() {
+  toggleShow: function () {
     var showInput = this.state.showInput
-    this.setState({showInput: !showInput})
+    this.setState({ showInput: !showInput })
   },
-  render: function() {
+  render: function () {
     return (
       <div className='demo'>
         <h1>ReactPivot</h1>
