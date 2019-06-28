@@ -12,12 +12,16 @@ var dimensions = [
   { value: 'firstName', title: 'First Name' },
   { value: 'lastName', title: 'Last Name' },
   { value: 'state', title: 'State' },
-  {value: function(row) {
+  {
+    value: function (row) {
       return row.transaction.business
-  }, title: 'Business'},
-  {value: function(row) {
+    }, title: 'Business'
+  },
+  {
+    value: function (row) {
       return row.transaction.type
-  }, title: 'Transaction Type'}
+    }, title: 'Transaction Type'
+  }
 ]
 
 var reduce = function (row, memo) {
@@ -31,12 +35,14 @@ var calculations = [
     title: 'Count',
     value: 'count',
     className: 'alignRight',
-    sortBy: function(row) { return row.count }
+    sortBy: function (row) {
+      return row.count
+    }
   },
   {
     title: 'Amount',
     value: 'amountTotal',
-    template: function(val, row) {
+    template: function (val, row) {
       return '$' + val.toFixed(2)
     },
     className: 'alignRight'
@@ -48,6 +54,16 @@ var calculations = [
     },
     template: function (val, row) {
       return '$' + val.toFixed(2)
+    },
+    className: 'alignRight'
+  },
+  {
+    title: 'percentage of Avg Amount',
+    value: function (row) {
+      return row.amountTotal / row.count
+    },
+    template: function (val, row, parentRow) {
+      return ((row.amountTotal / parentRow.amountTotal) * 100).toFixed(2)
     },
     className: 'alignRight'
   }

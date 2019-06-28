@@ -87,7 +87,7 @@ module.exports = createReactClass({
     return (
       <tbody>
       {rows.map(function (row) {
-        if (row._level - parentRow._level !== 1) {
+        if ((row._level - parentRow._level) === 0) {
           parentRow = row
         }
         return (
