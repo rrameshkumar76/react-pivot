@@ -12,9 +12,12 @@ module.exports = createReactClass({
       rows: [],
       sortBy: null,
       sortDir: 'asc',
-      onSort: function () {},
-      onSolo: function () {},
-      onColumnHide: function () {},
+      onSort: function () {
+      },
+      onSolo: function () {
+      },
+      onColumnHide: function () {
+      },
       soloText: "solo"
     }
   },
@@ -87,7 +90,7 @@ module.exports = createReactClass({
     return (
       <tbody>
       {rows.map(function (row) {
-        if ((row._level - toplevelParent._level) === 0) {
+        if (row._level === 0) {
           toplevelParent = row
         }
         return (
